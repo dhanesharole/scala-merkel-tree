@@ -2,7 +2,7 @@ package com.tw.distributed.lib
 
 import scala.annotation.tailrec
 
-class MerkelTree private(dataBlocks: List[String]) {
+class MerkleTree private(dataBlocks: List[String]) {
 
   private lazy val hashTree: Tree = mkHashTree(dataBlocks)
 
@@ -41,6 +41,6 @@ class MerkelTree private(dataBlocks: List[String]) {
   }
 }
 
-object MerkelTree {
-  def apply(dataBlocks: List[String]): MerkelTree = new MerkelTree(dataBlocks)
+object MerkleTree {
+  def apply(dataBlocks: List[String]): MerkleTree = new MerkleTree(dataBlocks)
 }
