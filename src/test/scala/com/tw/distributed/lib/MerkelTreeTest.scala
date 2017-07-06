@@ -9,7 +9,7 @@ class MerkelTreeTest extends org.scalatest.FunSuite {
     assert(merkelTree.rootHash == Hash("dhanesharole"))
   }
 
-  test("should be able to create Merktree from from odd numbered datablocks") {
+  test("should be able to create Merkel tree from from odd numbered datablocks") {
     val merkelTree = MerkelTree(List("dhanesh", "arole", "justin"))
 
     assert(merkelTree.rootHash == Hash("justindhanesharole"))
