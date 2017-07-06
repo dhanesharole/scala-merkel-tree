@@ -1,7 +1,4 @@
-package core.lib
-
-import com.tw.distributed.MerkelTree
-import com.tw.distributed.core.lib.Hash
+package com.tw.distributed.lib
 
 class MerkelTreeTest extends org.scalatest.FunSuite {
 

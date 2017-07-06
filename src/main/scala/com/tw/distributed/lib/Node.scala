@@ -1,4 +1,4 @@
-package com.tw.distributed.core.lib
+package com.tw.distributed.lib
 
 sealed trait Node {
   def data: Hash

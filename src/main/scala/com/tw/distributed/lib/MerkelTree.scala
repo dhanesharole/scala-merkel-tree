@@ -1,6 +1,4 @@
-package com.tw.distributed
-
-import com.tw.distributed.core.lib._
+package com.tw.distributed.lib
 
 import scala.annotation.tailrec
 
@@ -13,26 +11,27 @@ class MerkelTree private(dataBlocks: List[String]) {
   private def mkHashTree(dataBlocks: List[String]): Tree = {
 
     @tailrec
-    def breadthWiseHashing(nextLevelNodes: List[Node], nodes: List[Node]): List[Node] = takeFirstTwo(nodes) match {
+    def breadthWiseHashing(nextLevelNodes: List[Node], currentLevelNodes: List[Node]): List[Node] = takeFirstTwo(currentLevelNodes) match {
       case (None, _) => nextLevelNodes
       case (Some(left), None) =>
         breadthWiseHashing(NonLeaf(Hash(left.data.value), left, None)::nextLevelNodes, List.empty[Node])
 
       case (Some(left), Some(right)) =>
         val newNonLeafNode = NonLeaf(Hash(left.data.value ++ right.data.value), left, Some(right))
-        breadthWiseHashing(newNonLeafNode::nextLevelNodes, nodes.tail.tail)
+        breadthWiseHashing(newNonLeafNode::nextLevelNodes, currentLevelNodes.tail.tail)
     }
 
-    def mkHash(data: List[Node]) : Node = {
-      val currentLevelHashList = breadthWiseHashing(List.empty[Node], data)
-      currentLevelHashList match {
+    def getRootHashNodeFromLeaves(leaves: List[Node]) : Node = {
+      val firstLevelHashList = breadthWiseHashing(List.empty[Node], leaves)
+      firstLevelHashList match {
         case List() => Leaf(Hash(""))
         case List(rootNode) => rootNode
-        case _ => breadthWiseHashing(currentLevelHashList, currentLevelHashList).head
+        case _ => breadthWiseHashing(firstLevelHashList, firstLevelHashList).head
       }
     }
 
-    Tree(mkHash(dataBlocks.map(data => Leaf(Hash(data)))))
+    val leaves = dataBlocks.map(data => Leaf(Hash(data)))
+    Tree(getRootHashNodeFromLeaves(leaves))
   }
 
   private def takeFirstTwo(nodes: List[Node]): (Option[Node], Option[Node]) = nodes match {
