@@ -4,21 +4,21 @@ class MerkleTreeTest extends org.scalatest.FunSuite {
 
   test("should be able to create Merkle tree from two datablocks") {
 
-    val merkelTree = MerkleTree(List("dhanesh", "arole"))
+    val merkleTree = MerkleTree(List("dhanesh", "arole"))
 
-    assert(merkelTree.rootHash == Hash("dhanesharole"))
+    assert(merkleTree.rootHash == Hash("dhanesharole"))
   }
 
   test("should be able to create Merkle tree from from odd numbered datablocks") {
-    val merkelTree = MerkleTree(List("dhanesh", "arole", "justin"))
+    val merkleTree = MerkleTree(List("dhanesh", "arole", "justin"))
 
-    assert(merkelTree.rootHash == Hash("justindhanesharole"))
+    assert(merkleTree.rootHash == Hash("justindhanesharole"))
   }
 
   test("should be able to create Merkle tree for empty datablocks ") {
-    val merkelTree = MerkleTree(List())
+    val merkleTree = MerkleTree(List())
 
-    assert(merkelTree.rootHash == Hash(""))
+    assert(merkleTree.rootHash == Hash(""))
   }
 
 }
